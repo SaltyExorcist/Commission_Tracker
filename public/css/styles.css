@@ -1,0 +1,253 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #ece9e6, #ffffff);
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+form {
+    background: #fff;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 600px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+form div {
+    flex: 1 1 calc(50% - 20px);
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+form input, form select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+form button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background: #0056b3;
+}
+/*
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ccc;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+}
+
+th {
+    background-color: #4a90e2;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+    */
+    
+
+
+         #dataTable {
+            width: 100%;
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.9em;
+        font-family: sans-serif;
+        min-width: 400px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+
+    #dataTable thead tr {
+        background-color: #4a90e2;
+        color: #ffffff;
+        text-align: left;
+    }
+
+    #dataTable th,
+    #dataTable td {
+    padding: 12px 15px;
+}
+
+#dataTable tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+#dataTable tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+#dataTable tbody tr:last-of-type {
+    border-bottom: 2px solid #4a90e2;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+
+a {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    background: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-align: center;
+    transition: background 0.3s;
+}
+
+a:hover {
+    background: #0056b3;
+}
+
+.highlight {
+    background-color: rgba(0, 123, 255, 0.5);
+}
+
+#searchInput {
+    padding: 8px;
+    box-sizing: border-box;
+    margin: 5px 0;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#searchInput, #filterDateFrom, #filterDateTo, #filterService, #filterSalesRep {
+    padding: 10px;
+    box-sizing: border-box;
+    margin: 5px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.chart-container {
+    margin: 20px 0;
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+}
+
+.table-actions form {
+    display: inline;
+}
+
+.table-actions button {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+    margin: 0;
+}
+
+.table-actions button:hover {
+    color: #0056b3;
+}
+
+.error-message {
+    color: #dc3545;
+    text-align: center;
+}
+
+/* Button Alignment Styles */
+.table-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.table-actions a, .table-actions form {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+.table-actions button, .table-actions a {
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.table-actions a {
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+}
+
+.table-actions a:hover {
+    background-color: #0056b3;
+}
+
+.table-actions button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+}
+
+.table-actions button:hover {
+    background-color: #c82333;
+}
+

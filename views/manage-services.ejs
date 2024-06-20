@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Services</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h1>Manage Services</h1>
+    <form action="/admin/manage-services" method="POST">
+        <div>
+            <label for="name">Service Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div>
+            <label for="baseCommission">Base Commission:</label>
+            <input type="number" id="baseCommission" name="baseCommission" required>
+        </div>
+        <button type="submit">Add Service</button>
+    </form>
+    <table >
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Base Commission</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% services.forEach(function(service) { %>
+                <tr>
+                    <td><%= service.name %></td>
+                    <td><%= service.baseCommission %></td>
+                    <td>
+                        <form action="/admin/manage-services/edit/<%= service._id %>" method="POST" style="display:inline;">
+                            <input type="number" name="baseCommission" value="<%= service.baseCommission %>" required>
+                            <button type="submit">Update</button>
+                        </form>
+                        <form action="/admin/manage-services/delete/<%= service._id %>" method="POST" style="display:inline;">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    <a href="/admin" class="logout">Back to Admin Panel</a>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Commission Tracker Dashboard</h1>
+    <div class="chart-container">
+        <canvas id="commissionChart" width="400" height="200"></canvas>
+    </div>
+</div>
+    <a href="/admin">Back to Admin Panel</a>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('commissionChart').getContext('2d');
+            const salesReps = <%- JSON.stringify(salesReps) %>;
+            const totalCommissions = <%- JSON.stringify(commissions) %>;
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: salesReps,
+                    datasets: [{
+                        label: 'Total Commissions',
+                        data: totalCommissions,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

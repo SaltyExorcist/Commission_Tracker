@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commissions</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h1>Commissions</h1>
+    <form action="/add" method="post">
+        <div>
+            <label for="customerName">Customer Name:</label>
+            <input type="text" id="customerName" name="customerName" required>
+        </div>
+        <div>
+            <label for="contact">Contact:</label>
+            <input type="text" id="contact" name="contact" required>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div>
+            <label for="salesRep">Sales Rep:</label>
+            <select id="salesRep" name="salesRep" required>
+                <<% salesReps.forEach(function(rep) { %>
+                    <option value="<%= rep.name %>"><%= rep.name %></option>
+                <% }); %>
+            </select>
+        </div>
+        <div>
+            <label for="service">Service:</label>
+            <select id="service" name="service" required>
+                <% services.forEach(function(service) { %>
+                    <option value="<%= service.name %>"><%= service.name %></option>
+                <% }); %>
+            </select>
+        </div>
+        <div>
+            <label for="numberOfPeople">Number of People:</label>
+            <input type="number" id="numberOfPeople" name="numberOfPeople" required>
+        </div>
+        <button type="submit">Add Commission</button>
+    </form>
+    <form action="/filter" method="get">
+        <div>
+          <label for="service">Filter by Service:</label>
+          <select id="service" name="service">
+            <option value="">All Services</option>
+            <option value="rafting">Rafting</option>
+            <option value="horse riding">Horse Riding</option>
+            <option value="dining">Dining</option>
+            <option value="zip-lining">Zip-lining</option>
+          </select>
+        </div>
+        <div>
+          <label for="salesRep">Filter by Sales Rep:</label>
+          <select id="salesRep" name="salesRep">
+            <option value="">All Sales Reps</option>
+            <option value="John Doe">John Doe</option>
+            <option value="Jane Smith">Jane Smith</option>
+            <option value="Emily Johnson">Emily Johnson</option>
+            <option value="Michael Brown">Michael Brown</option>
+          </select>
+        </div>
+        <button type="submit">Filter</button>
+      </form>
+      <div class="filter-group">
+        <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search..">
+        <input type="date" id="filterDateFrom" onchange="filterTable()" placeholder="Date From">
+        <input type="date" id="filterDateTo" onchange="filterTable()" placeholder="Date To">
+        <select id="filterService" onchange="filterTable()">
+            <option value="">All Services</option>
+            <% services.forEach(function(service) { %>
+                <option value="<%= service.name %>"><%= service.name %></option>
+            <% }); %>   
+        </select>
+        <select id="filterSalesRep" onchange="filterTable()">
+            <option value="">All Sales Reps</option>
+            <<% salesReps.forEach(function(rep) { %>
+                <option value="<%= rep.name %>"><%= rep.name %></option>
+            <% }); %>
+        </select>
+    </div>
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Customer Name</th>
+                <th>Contact</th>
+                <th>Email</th>
+                <th>Sales Rep</th>
+                <th>Service</th>
+                <th>Number of People</th>
+                <th>Commission</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% commissions.forEach(function(commission) { %>
+                <tr>
+                    <td><%= commission.customerName %></td>
+                    <td><%= commission.contact %></td>
+                    <td><%= commission.email %></td>
+                    <td><%= commission.salesRep %></td>
+                    <td><%= commission.service %></td>
+                    <td><%= commission.numberOfPeople %></td>
+                    <td><%= commission.commission %></td>
+                    <td><%= new Date(commission.date).toLocaleDateString() %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <a href="/download">Download CSV</a>
+    <a href="/auth/login">Admin Login</a>
+    <script>
+        function searchTable() {
+            var input, filter, table, tr, td, i, j, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("dataTable");
+            tr = table.getElementsByTagName("tr");
+
+            // Clear previous highlights
+            for (i = 1; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td");
+                for (j = 0; j < td.length; j++) {
+                    td[j].innerHTML = td[j].innerText;
+                }
+            }
+
+            // Highlight and search
+            for (i = 1; i < tr.length; i++) {
+                tr[i].style.display = "none";
+                td = tr[i].getElementsByTagName("td");
+                for (j = 0; j < td.length; j++) {
+                    if (td[j]) {
+                        txtValue = td[j].textContent || td[j].innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                            td[j].innerHTML = td[j].innerText.replace(new RegExp(filter, "gi"), match => `<span class="highlight">${match}</span>`);
+                        }
+                    }
+                }
+            }
+        }
+
+        function filterTable() {
+    var dateFrom, dateTo, service, salesRep, table, tr, td, i, dateValue, serviceValue, salesRepValue;
+
+    dateFrom = new Date(document.getElementById("filterDateFrom").value);
+    dateTo = new Date(document.getElementById("filterDateTo").value);
+    service = document.getElementById("filterService").value.toUpperCase();
+    salesRep = document.getElementById("filterSalesRep").value.toUpperCase();
+    table = document.getElementById("dataTable");
+    tr = table.getElementsByTagName("tr");
+
+    for (i = 1; i < tr.length; i++) {
+        tr[i].style.display = "none";
+        td = tr[i].getElementsByTagName("td");
+        dateValue = new Date(td[7].textContent || td[7].innerText);
+        serviceValue = td[4].textContent || td[4].innerText;
+        salesRepValue = td[3].textContent || td[3].innerText;
+
+        if ((isNaN(dateFrom) || dateValue >= dateFrom) &&
+            (isNaN(dateTo) || dateValue <= dateTo) &&
+            (service === "" || serviceValue.toUpperCase() === service) &&
+            (salesRep === "" || salesRepValue.toUpperCase() === salesRep)) {
+            tr[i].style.display = "";
+        }
+    }
+}
+
+    </script>
+</body>
+</html>

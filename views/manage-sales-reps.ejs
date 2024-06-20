@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Sales Reps</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h1>Manage Sales Reps</h1>
+    <form action="/admin/manage-sales-reps" method="POST">
+        <div>
+            <label for="name">Sales Rep Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <button type="submit">Add Sales Rep</button>
+    </form>
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% salesReps.forEach(function(rep) { %>
+                <tr>
+                    <td><%= rep.name %></td>
+                    <td>
+                        <form action="/admin/manage-sales-reps/edit/<%= rep._id %>" method="POST" style="display:inline;">
+                            <input type="number" name="baseCommission" value="<%= rep.baseCommission %>" required>
+                            <button type="submit">Update</button>
+                        </form>
+                        <form action="/admin/manage-sales-reps/delete/<%= rep._id %>" method="POST" style="display:inline;">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    <a href="/admin" class="logout">Back to Admin Panel</a>
+</body>
+</html>

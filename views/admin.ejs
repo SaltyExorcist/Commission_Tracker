@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h1>Admin Panel</h1>
+    <% if (typeof success !== 'undefined') { %>
+        <p style="color: green;"><%= success %></p>
+    <% } %>
+    <% if (typeof error !== 'undefined') { %>
+        <p style="color: red;"><%= error %></p>
+    <% } %>
+    <a href="/admin/manage-sales-reps" class="logout">Manage Sales Reps</a>
+    <a href="/admin/manage-services" class="logout">Manage Services</a>
+    <a href="/admin/change-password" class="logout">Change password</a>
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Customer Name</th>
+                <th>Contact</th>
+                <th>Email</th>
+                <th>Sales Rep</th>
+                <th>Service</th>
+                <th>Commission</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% commissions.forEach(function(commission) { %>
+                <tr>
+                    <td><%= commission.customerName %></td>
+                    <td><%= commission.contact %></td>
+                    <td><%= commission.email %></td>
+                    <td><%= commission.salesRep %></td>
+                    <td><%= commission.service %></td>
+                    <td><%= commission.commission %></td>
+                    <td><%= new Date(commission.date).toLocaleDateString() %></td>
+                    <td class="table-actions">
+                        <a href="/admin/edit/<%= commission._id %>">Edit</a>
+                        <form action="/admin/delete/<%= commission._id %>" method="POST" style="display:inline;">
+                        <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <a href="/admin/dashboard">View Dashboard</a>
+    <a href="/auth/logout">Logout</a>
+</body>
+</html>
